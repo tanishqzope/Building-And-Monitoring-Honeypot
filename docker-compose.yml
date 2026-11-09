@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  honeypot:
+    build: .
+    container_name: honeypot_decoy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      - PORT=80
+      - HOST=0.0.0.0
+      - HONEYPOT_LOG=/app/honeypot.log
+    volumes:
+      # Persist honeypot logs to host machine for monitoring
+      - ./logs:/app/logs
